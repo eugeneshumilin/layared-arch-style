@@ -8,7 +8,7 @@ Container.register_provider(:db) do
   end
 
   start do
-    db = Sequel.sqlite('sqlite://dry_course.db')
+    db = Sequel.connect('sqlite://dry_course.db')
 
     register('persistence.db', db)
   end

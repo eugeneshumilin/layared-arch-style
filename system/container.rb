@@ -29,11 +29,20 @@ class Container < Dry::System::Container
     # libraries
     config.component_dirs.add 'lib' do |dir|
       dir.memoize = true
+
+      dir.auto_register = proc do |component|
+        !component.identifier.include?("types")
+      end
     end
 
     # business logic
     config.component_dirs.add 'contexts' do |dir|
       dir.memoize = true
+
+      dir.auto_register = proc do |component|
+        !component.identifier.include?("entities")
+        !component.identifier.include?("types")
+      end
 
       dir.namespaces.add 'toy_testing', key: 'contexts.toy_testing'
       dir.namespaces.add 'accounting', key: 'contexts.accounting'
@@ -44,6 +53,8 @@ class Container < Dry::System::Container
       dir.memoize = true
 
       dir.namespaces.add 'in_memory', key: 'in_memory'
+      dir.namespaces.add 'http', key: 'http' # if ENV['APP_TRANSPORT'] == 'http'
+      dir.namespaces.add 'kafka', key: 'kafka' # if ENV['APP_TRANSPORT'] == 'kafka'
     end
   end
 end

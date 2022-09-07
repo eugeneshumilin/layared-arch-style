@@ -117,3 +117,37 @@ whitelist = %w[
 FitnessFunctions::CrossContextCallsChecker.new.call('contexts/toy_testing/repositories/account.rb', whitelist: whitelist)
 FitnessFunctions::CrossContextCallsChecker.new.call('contexts/toy_testing/repositories/testing.rb', whitelist: whitelist)
 FitnessFunctions::CrossContextCallsChecker.new.call('contexts/toy_testing/repositories/cat_toy.rb', whitelist: whitelist)
+
+puts
+puts '====== HTTP transport layer ======'
+puts
+
+whitelist = %w[
+  hanami.action.configuration
+  contexts.toy_testing.commands
+]
+
+FitnessFunctions::CrossContextCallsChecker.new.call('apps/http/actions/commands/send_testing_result.rb', whitelist: whitelist)
+FitnessFunctions::CrossContextCallsChecker.new.call('apps/http/actions/commands/assign_toy_to_account.rb', whitelist: whitelist)
+
+puts
+puts '****'
+puts
+
+whitelist = %w[
+  hanami.action.configuration
+  contexts.accounting.commands
+]
+
+FitnessFunctions::CrossContextCallsChecker.new.call('apps/http/actions/commands/earn_points_for_account.rb', whitelist: whitelist)
+
+puts
+puts '****'
+puts
+
+whitelist = %w[
+  hanami.action.configuration
+  contexts.toy_testing.queries
+]
+
+FitnessFunctions::CrossContextCallsChecker.new.call('apps/http/actions/queries/pending_testings_for_account.rb', whitelist: whitelist)
