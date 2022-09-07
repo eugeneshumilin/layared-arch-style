@@ -72,18 +72,25 @@ whitelist = %w[
   contexts.accounting.repositories
 ]
 
-FitnessFunctions::CrossContextCallsChecker.new.call('contexts/accounting/commands/complete_test.rb', whitelist: whitelist)
+FitnessFunctions::CrossContextCallsChecker.new.call('contexts/accounting/commands/complete_testing.rb', whitelist: whitelist)
 
 puts
 puts '****'
 puts
 
 whitelist = %w[
-  persistance.db
+  persistence.db
+  contexts.accounting.repositories.transaction
 ]
 
 FitnessFunctions::CrossContextCallsChecker.new.call('contexts/accounting/repositories/account.rb', whitelist: whitelist)
-FitnessFunctions::CrossContextCallsChecker.new.call('contexts/accounting/repositories/cat_toy.rb', whitelist: whitelist)
+
+whitelist = %w[
+  persistence.db
+]
+
+FitnessFunctions::CrossContextCallsChecker.new.call('contexts/accounting/repositories/testing.rb', whitelist: whitelist)
+FitnessFunctions::CrossContextCallsChecker.new.call('contexts/accounting/repositories/transaction.rb', whitelist: whitelist)
 
 puts
 puts '****'
@@ -96,16 +103,17 @@ whitelist = %w[
   contexts.toy_testing.repositories
 ]
 
-FitnessFunctions::CrossContextCallsChecker.new.call('contexts/toy_testing/commands/assign_toy_to_tester.rb', whitelist: whitelist)
-FitnessFunctions::CrossContextCallsChecker.new.call('contexts/toy_testing/commands/send_testing_result.rb',  whitelist: whitelist)
+FitnessFunctions::CrossContextCallsChecker.new.call('contexts/toy_testing/commands/assign_toy_to_account.rb', whitelist: whitelist)
+FitnessFunctions::CrossContextCallsChecker.new.call('contexts/toy_testing/commands/process_testing_result.rb',  whitelist: whitelist)
 
 puts
 puts '****'
 puts
 
 whitelist = %w[
-  persistance.db
+  persistence.db
 ]
 
 FitnessFunctions::CrossContextCallsChecker.new.call('contexts/toy_testing/repositories/account.rb', whitelist: whitelist)
-FitnessFunctions::CrossContextCallsChecker.new.call('contexts/toy_testing/repositories/account.rb', whitelist: whitelist)
+FitnessFunctions::CrossContextCallsChecker.new.call('contexts/toy_testing/repositories/testing.rb', whitelist: whitelist)
+FitnessFunctions::CrossContextCallsChecker.new.call('contexts/toy_testing/repositories/cat_toy.rb', whitelist: whitelist)

@@ -4,8 +4,12 @@ Container.register_provider(:db) do
   prepare do
     require 'sequel'
 
-    db = Sequel.connect('sqlite://dry_course.db')
+    Sequel.extension :migration
+  end
 
-    register('persistance.db', db)
+  start do
+    db = Sequel.sqlite('sqlite://dry_course.db')
+
+    register('persistence.db', db)
   end
 end
